@@ -8,10 +8,6 @@ This project implements an accordion section that fetches content from a provide
 
 **Stack:** Nuxt 4, Sass
 
-**Design:** [Figma Link](https://www.figma.com/file/CBAU9HjUgYpupwbDL8MoYG/Teamwork-Marketing---Front-end-assessment?type=design&node-id=2%3A217&mode=design&t=S4wBd9iAgCmWqSwN-1)
-
-**API Endpoint:** https://eoyge3duj7xtdqd.m.pipedream.net
-
 ## Setup
 
 Install dependencies:
