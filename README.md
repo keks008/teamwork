@@ -1,6 +1,6 @@
 # Teamwork Marketing - Front-end Assessment
 
-A reusable accordion component built with Nuxt 3 and Sass, based on the Teamwork Marketing design specifications.
+A reusable accordion component built with Nuxt 4 and Sass, based on the Teamwork Marketing design specifications.
 
 ## Project Overview
 
