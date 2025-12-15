@@ -23,7 +23,7 @@ body {
   font-weight: $font-weight-normal;
   line-height: $line-height-body;
   color: $color-text;
-  background-color: $color-background-secondary;
+  background-color: $color-background;
 }
 
 // Skip Link
@@ -31,7 +31,7 @@ body {
   position: absolute;
   top: -100%;
   left: $space-md;
-  z-index: $z-index-tooltip;
+  z-index: 999;
   padding: $space-md $space-lg;
   background-color: $color-primary;
   color: $color-background;
@@ -89,7 +89,7 @@ body {
 
 .section-tag {
   display: inline-block;
-  font-size: $font-size-sm;
+  font-size: $font-size-tag;
   font-weight: $font-weight-normal;
   text-transform: uppercase;
   line-height: $line-height-tag;
@@ -98,21 +98,14 @@ body {
 }
 
 .section-title {
-  font-size: $font-size-4xl;
+  font-size: $font-size-heading;
   font-weight: $font-weight-semibold;
   line-height: $line-height-heading;
   color: $color-text;
 
   @media (max-width: $breakpoint-md) {
-    font-size: $font-size-3xl;
+    font-size: $font-size-heading-mobile;
   }
-}
-
-.section-subtitle {
-  font-size: $font-size-lg;
-  color: $color-text-secondary;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
 // Accordion Layout - Page-specific layout pattern
@@ -197,7 +190,6 @@ body {
   padding: $space-lg;
   text-align: center;
   background: $color-background;
-  border: 1px solid $color-border;
   border-radius: $radius-sm;
 }
 
@@ -207,7 +199,6 @@ body {
 }
 
 .error-message {
-  font-size: $font-size-lg;
   color: $color-text-secondary;
   margin-bottom: $space-lg;
 }
@@ -224,7 +215,7 @@ body {
   transition: background-color $transition-fast;
 
   &:hover {
-    background-color: $color-primary-dark;
+    background-color: $color-component-background;
   }
 
   &:focus-visible {

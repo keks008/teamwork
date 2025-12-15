@@ -1,75 +1,56 @@
-# Nuxt Minimal Starter
+# Teamwork Marketing - Front-end Assessment
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A reusable accordion component built with Nuxt 3 and Sass, based on the Teamwork Marketing design specifications.
+
+## Project Overview
+
+This project implements an accordion section that fetches content from a provided API endpoint and displays it with full responsiveness, accessibility, and performance optimizations.
+
+**Stack:** Nuxt 3, Sass
+
+**Design:** [Figma Link](https://www.figma.com/file/CBAU9HjUgYpupwbDL8MoYG/Teamwork-Marketing---Front-end-assessment?type=design&node-id=2%3A217&mode=design&t=S4wBd9iAgCmWqSwN-1)
+
+**API Endpoint:** https://eoyge3duj7xtdqd.m.pipedream.net
 
 ## Setup
 
-Make sure to install dependencies:
+Install dependencies:
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
+## Development
 
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
 ## Production
 
-Build the application for production:
+Build the application:
 
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+Preview production build:
 
 ```bash
-# npm
 npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Components
+
+- **Accordion.vue** - Main accordion component with expand/collapse functionality
+- **Icon.vue** - Reusable icon component
+- **Spinner.vue** - Loading state indicator
+
+## Features
+
+- ✅ Responsive design (mobile to desktop)
+- ✅ Keyboard navigation support
+- ✅ Performance optimized (Core Web Vitals)
+- ✅ Accessibility compliant

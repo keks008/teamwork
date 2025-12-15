@@ -186,7 +186,6 @@ defineExpose({
     text-align: center;
     color: $color-text-secondary;
     background: $color-component-background;
-    border: 1px solid $color-border;
     border-radius: $radius-sm;
 }
 
@@ -257,15 +256,13 @@ defineExpose({
     display: flex;
     align-items: center;
     justify-content: center;
-    width: $accordion-chevron-size;
-    height: $accordion-chevron-size;
     color: $color-text-secondary;
 }
 
 .accordion__title {
     flex: 1;
     min-width: 0;
-    font-size: $font-size-lg;
+    font-size: $font-size-accordion-title;
     font-weight: $font-weight-medium;
     line-height: $line-height-accordion-title;
     color: $color-text;
@@ -273,7 +270,7 @@ defineExpose({
     text-overflow: ellipsis;
 
     @media (max-width: $breakpoint-md) {
-        font-size: $font-size-base;
+        font-size: $font-size-accordion-title-mobile;
     }
 }
 

@@ -164,7 +164,7 @@ useHead({
               <span v-if="tag" class="section-tag">{{ tag }}</span>
               <h2 v-if="title" id="features-title" class="section-title">{{ title }}</h2>
             </header>
-
+            <!-- Lazy loading, assuming that accordeon component will be below the flold -->
             <LazyAccordion
               :items="items"
               :allow-multiple="false"
