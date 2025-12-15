@@ -1,0 +1,85 @@
+// Design Tokens - Only variables actually used in the project
+
+// Colors
+$color-primary: #ff22b1;
+$color-primary-dark: #494E6A;
+$color-text: #1D1C39;
+$color-text-secondary: #494E6A;
+$color-text-tertiary: #4461D7;
+$color-background: #ffffff;
+$color-component-background: #EAEEF4;
+$color-background-secondary: #ffffff;
+$color-border: #e5e5e5;
+$color-error: #dc3545;
+
+// Typography
+$font-family-base: 'Work Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+
+$font-size-xs: 0.75rem;    // 12px
+$font-size-sm: 0.875rem;   // 14px
+$font-size-base: 1rem;     // 16px
+$font-size-lg: 1.125rem;   // 18px
+$font-size-3xl: 2rem;      // 32px
+$font-size-4xl: 2.5rem;    // 40px
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+
+$line-height-tag: 25px;
+$line-height-heading: 41px;
+$line-height-accordion-title: 120%;
+$line-height-body: 26px;
+
+// Spacing Scale
+$space-xs: 0.25rem;   // 4px
+$space-sm: 0.5rem;    // 8px
+$space-md: 1rem;      // 16px
+$space-lg: 1.5rem;    // 24px
+
+
+
+
+$section-pad-y: 81px;
+$section-pad-y-mobile: 40px;
+$section-pad-x-mobile: 28.5px;
+
+
+// Section Header
+$section-header-gap: 0.563rem; // 9px
+$section-header-mb: 2.125rem; // 34px
+
+
+
+// Border Radius
+$radius-sm: 0.25rem;   // 4px
+
+
+// Transitions
+$transition-fast: 150ms ease-in-out;
+$transition-base: 200ms ease-in-out;
+
+// Breakpoints
+$breakpoint-md: 768px;
+
+// Z-index Scale
+$z-index-tooltip: 1070;
+
+// Container
+$container-max-width: 1233px;
+$container-padding: $space-lg;
+
+// Accordion Specific
+$accordion-padding: 1.125rem; // 18px
+$accordion-padding-bottom: 2.375rem; // 38px
+$accordion-gap: 1.25rem; // 20px
+
+
+$accordion-panel-padding: $accordion-padding $accordion-padding $accordion-padding $accordion-padding-bottom;
+$accordion-chevron-size: 24px;
+
+
+

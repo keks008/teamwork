@@ -1,0 +1,241 @@
+// Global styles - page layout, utilities, and resets only
+// Component-specific styles belong in their respective .vue files
+
+// Reset & Base Styles
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scrollbar-gutter: stable;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  line-height: $line-height-body;
+  color: $color-text;
+  background-color: $color-background-secondary;
+}
+
+// Skip Link
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: $space-md;
+  z-index: $z-index-tooltip;
+  padding: $space-md $space-lg;
+  background-color: $color-primary;
+  color: $color-background;
+  font-weight: $font-weight-semibold;
+  text-decoration: none;
+  border-radius: $radius-sm;
+  transition: top $transition-fast;
+
+  &:focus {
+    top: $space-md;
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+// Screen Reader Only
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// Page Layout
+.page {
+  min-height: 100dvh;
+  padding: $section-pad-y $space-lg;
+
+  @media (max-width: $breakpoint-md) {
+    padding: $section-pad-y-mobile $section-pad-x-mobile;
+  }
+}
+
+.container {
+  max-width: $container-max-width;
+  margin: 0 auto;
+
+  @media (max-width: $breakpoint-md) {
+    padding: 0;
+  }
+}
+
+// Section Header
+.section-header {
+    display: flex;
+    flex-direction: column;
+    gap: $section-header-gap;
+    margin-bottom: $section-header-mb;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-normal;
+  text-transform: uppercase;
+  line-height: $line-height-tag;
+  letter-spacing: 2px;
+  color: $color-primary;
+}
+
+.section-title {
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-heading;
+  color: $color-text;
+
+  @media (max-width: $breakpoint-md) {
+    font-size: $font-size-3xl;
+  }
+}
+
+.section-subtitle {
+  font-size: $font-size-lg;
+  color: $color-text-secondary;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+// Accordion Layout - Page-specific layout pattern
+// This controls how the accordion is positioned on THIS page
+.accordion-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+
+  @media (max-width: $breakpoint-md) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+.accordion-layout__image {
+  
+  display: block;
+
+  @media (max-width: $breakpoint-md) {
+    display: none;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: opacity $transition-base;
+  }
+}
+
+.accordion-layout__content {
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+
+    @media (max-width: $breakpoint-md) {
+    max-width: 100%;
+  }
+}
+
+// Image inside accordion panels - responsive behavior
+// Hidden on desktop (image shows outside), visible on mobile (shows inside)
+.accordion__image {
+  display: none;
+
+  @media (max-width: $breakpoint-md) {
+    display: block;
+    width: 100%;
+    margin-top: $space-lg;
+  }
+
+  img {
+    max-width: 282px;
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    display: block;
+  }
+}
+
+// Loading State
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $space-lg;
+  text-align: center;
+}
+
+.loading-spinner {
+  margin-bottom: $space-lg;
+}
+
+// Error State
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $space-lg;
+  text-align: center;
+  background: $color-background;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+}
+
+.error-icon {
+  color: $color-error;
+  margin-bottom: $space-lg;
+}
+
+.error-message {
+  font-size: $font-size-lg;
+  color: $color-text-secondary;
+  margin-bottom: $space-lg;
+}
+
+.retry-button {
+  padding: $space-md $space-lg;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: $color-background;
+  background-color: $color-primary;
+  border: none;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: $color-primary-dark;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+// Empty State
+.empty-state {
+  padding: $space-lg;
+  text-align: center;
+  color: $color-text-secondary;
+}
