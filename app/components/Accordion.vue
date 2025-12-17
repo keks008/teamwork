@@ -22,7 +22,7 @@ const props = defineProps({
 
 const emit = defineEmits(['toggle', 'change'])
 
-// Use reactive array instead of Set for better Vue reactivity
+// Track which accordion items are open
 const openItems = ref([...props.defaultOpenIds])
 
 const accordionRef = ref(null)
@@ -61,7 +61,7 @@ const toggleItem = (id) => {
     })
 }
 
-// Keyboard navigation handler
+// Keyboard navigation
 const handleKeydown = (event, index) => {
     const items = props.items
     const itemCount = items.length
@@ -108,7 +108,7 @@ const setButtonRef = (id, el) => {
 
 const getButtonId = (id) => `${componentId}-button-${id}`
 const getPanelId = (id) => `${componentId}-panel-${id}`
-
+// Heading tag
 const HeadingTag = computed(() => `h${props.headingLevel}`)
 
 defineExpose({
