@@ -120,6 +120,7 @@ body {
   }
 }
 
+// Desktop image
 .accordion-layout__image {
   
   display: block;
@@ -143,8 +144,7 @@ body {
   }
 }
 
-// Image inside accordion panels - responsive behavior
-// Hidden on desktop (image shows outside), visible on mobile (shows inside)
+// Mobile image
 .accordion__image {
 
   img {
