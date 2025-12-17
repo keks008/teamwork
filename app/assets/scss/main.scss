@@ -109,7 +109,6 @@ body {
 }
 
 // Accordion Layout - Page-specific layout pattern
-// This controls how the accordion is positioned on THIS page
 .accordion-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -125,9 +124,6 @@ body {
   
   display: block;
 
-  @media (max-width: $breakpoint-md) {
-    display: none;
-  }
 
   img {
     width: 100%;
@@ -150,13 +146,6 @@ body {
 // Image inside accordion panels - responsive behavior
 // Hidden on desktop (image shows outside), visible on mobile (shows inside)
 .accordion__image {
-  display: none;
-
-  @media (max-width: $breakpoint-md) {
-    display: block;
-    width: 100%;
-    margin-top: $space-lg;
-  }
 
   img {
     max-width: 282px;

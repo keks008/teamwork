@@ -1,3 +1,4 @@
+```vue
 <script setup>
 const { 
   items, 
@@ -18,35 +19,28 @@ const imageErrors = ref(new Set())
 // Live region for screen reader announcements
 const liveRegionMessage = ref('')
 
-// Get the currently open item's image (defaults to first item)
+// Reactive media query for viewport detection
+const isMobile = ref(false)
+let mediaQuery = null
+
+// Get the currently open item's image, defaults to first item
 const currentImage = computed(() => {
-  if (openItemId.value) {
-    const openItem = items.value.find(item => item.id === openItemId.value)
-    return openItem?.image || null
-  }
-  // Default to first item's image
-  return items.value[0]?.image || null
+  const id = openItemId.value || items.value[0]?.id
+  return items.value.find(item => item.id === id)?.image || null
 })
 
 // Get the currently open item for better alt text
 const currentItem = computed(() => {
-  if (openItemId.value) {
-    return items.value.find(item => item.id === openItemId.value)
-  }
-  return items.value[0] || null
+  const id = openItemId.value || items.value[0]?.id
+  return items.value.find(item => item.id === id) || null
 })
 
 // Check if an image has failed to load
-const hasImageError = (imageUrl) => {
-  return imageErrors.value.has(imageUrl)
-}
+const hasImageError = (imageUrl) => imageErrors.value.has(imageUrl)
 
 // Handle image load error
 const handleImageError = (imageUrl) => {
   imageErrors.value.add(imageUrl)
-  // Announce to screen readers
-  liveRegionMessage.value = 'Image failed to load'
-  setTimeout(() => liveRegionMessage.value = '', 1000)
 }
 
 const handleToggle = (id, isOpen) => {
@@ -64,6 +58,18 @@ const handleToggle = (id, isOpen) => {
   }
 }
 
+onMounted(() => {
+  // Check for mobile viewport
+  mediaQuery = window.matchMedia('(max-width: 767px)')
+  isMobile.value = mediaQuery.matches
+  mediaQuery.addEventListener('change', (e) => isMobile.value = e.matches)
+})
+
+onUnmounted(() => {
+  // Remove media query listener
+  mediaQuery?.removeEventListener('change', (e) => isMobile.value = e.matches)
+})
+
 // Watch for items to load and set first as open
 watch(items, (newItems) => {
   if (newItems.length > 0 && !openItemId.value) {
@@ -77,12 +83,7 @@ watch(items, (newItems) => {
     <a href="#features-accordion" class="skip-link">Skip to features section</a>
     
     <!-- Live region for screen reader announcements -->
-    <div 
-      aria-live="polite" 
-      aria-atomic="true" 
-      class="sr-only"
-      role="status"
-    >
+    <div aria-live="polite" aria-atomic="true" class="sr-only" role="status">
       {{ liveRegionMessage }}
     </div>
     
@@ -116,39 +117,51 @@ watch(items, (newItems) => {
         </div>
 
         <div v-else class="accordion-layout">
-          <!-- Desktop single image -->
-          <div 
-            v-if="currentImage" 
-            class="accordion-layout__image"
-            role="img"
-            :aria-label="currentItem ? `Illustration for ${currentItem.title}` : 'Feature illustration'"
-          >
-            <picture v-if="!hasImageError(currentImage)">
-              <source 
-                :srcset="currentImage" 
-                type="image/webp"
-              >
-              <img 
-                :key="currentImage"
-                :src="currentImage" 
-                :alt="currentItem ? `${currentItem.title} - Visual representation of the feature` : 'Feature illustration'"
-                width="650"
-                height="570"
-                loading="eager"
-                decoding="async"
-                @error="handleImageError(currentImage)"
-              />
-            </picture>
+          <!-- Desktop image, condition - rendered based on viewport -->
+          <ClientOnly>
             <div 
-              v-else 
-              class="image-placeholder"
+              v-if="!isMobile && currentImage" 
+              class="accordion-layout__image"
               role="img"
-              aria-label="Image unavailable - failed to load illustration"
+              :aria-label="currentItem ? `Illustration for ${currentItem.title}` : 'Feature illustration'"
             >
-              <Icon name="error" :size="48" color="#9ca3af" aria-hidden="true" />
-              <p aria-hidden="true">Image unavailable</p>
+              <picture v-if="!hasImageError(currentImage)">
+                <source :srcset="currentImage" type="image/webp">
+                <img 
+                  :key="currentImage"
+                  :src="currentImage" 
+                  :alt="currentItem ? `${currentItem.title} - Visual representation of the feature` : 'Feature illustration'"
+                  width="650"
+                  height="570"
+                  fetchpriority="high"
+                  decoding="async"
+                  class="fade-in"
+                  @error="handleImageError(currentImage)"
+                />
+              </picture>
+              <div 
+                v-else 
+                class="image-placeholder fade-in"
+                role="img"
+                aria-label="Image unavailable - failed to load illustration"
+              >
+                <Icon name="error" :size="48" color="#9ca3af" aria-hidden="true" />
+                <p aria-hidden="true">Image unavailable</p>
+              </div>
             </div>
-          </div>
+            
+            <!-- SSR fallback for initial render -->
+            <template #fallback>
+              <div v-if="currentImage" class="accordion-layout__image">
+                <img 
+                  :src="currentImage" 
+                  alt="Feature illustration" 
+                  width="650" 
+                  height="570" 
+                />
+              </div>
+            </template>
+          </ClientOnly>
 
           <!-- Accordion column with header inside -->
           <div class="accordion-layout__content">
@@ -156,7 +169,8 @@ watch(items, (newItems) => {
               <span v-if="tag" class="section-tag">{{ tag }}</span>
               <h2 v-if="title" id="features-title" class="section-title">{{ title }}</h2>
             </header>
-            <!-- Lazy loading, assuming that accordion component will be below the fold -->
+            
+            <!-- Lazy loading, assuming accordion component will be below the fold -->
             <LazyAccordion
               :items="items"
               :allow-multiple="false"
@@ -166,33 +180,37 @@ watch(items, (newItems) => {
             >
               <template #content="{ item, isOpen }">
                 <p>{{ item.content }}</p>
-                <!-- Mobile image inside each accordion panel -->
-                <div v-if="item.image && isOpen" class="accordion__image">
-                  <picture v-if="!hasImageError(item.image)">
-                    <source 
-                      :srcset="item.image" 
-                      type="image/webp"
-                    >
-                    <img 
-                      :src="item.image" 
-                      :alt="`${item.title} - Visual representation of the feature`"
-                      width="282"
-                      height="120"
-                      loading="lazy"
-                      decoding="async"
-                      @error="handleImageError(item.image)"
-                    />
-                  </picture>
+                
+                <!-- Mobile image, conditionally rendered based on viewport -->
+                <ClientOnly>
                   <div 
-                    v-else 
-                    class="image-placeholder image-placeholder--small"
-                    role="img"
-                    aria-label="Image unavailable - failed to load illustration"
+                    v-if="isMobile && isOpen && item.image" 
+                    class="accordion__image"
                   >
-                    <Icon name="error" :size="32" color="#9ca3af" aria-hidden="true" />
-                    <p aria-hidden="true">Image unavailable</p>
+                    <picture v-if="!hasImageError(item.image)">
+                      <source :srcset="item.image" type="image/webp">
+                      <img 
+                        :src="item.image" 
+                        :alt="`${item.title} - Visual representation of the feature`"
+                        width="282"
+                        height="120"
+                        loading="lazy"
+                        decoding="async"
+                        class="fade-in"
+                        @error="handleImageError(item.image)"
+                      />
+                    </picture>
+                    <div 
+                      v-else 
+                      class="image-placeholder image-placeholder--small fade-in"
+                      role="img"
+                      aria-label="Image unavailable - failed to load illustration"
+                    >
+                      <Icon name="error" :size="32" color="#9ca3af" aria-hidden="true" />
+                      <p aria-hidden="true">Image unavailable</p>
+                    </div>
                   </div>
-                </div>
+                </ClientOnly>
               </template>
               
               <template #empty>
@@ -207,3 +225,22 @@ watch(items, (newItems) => {
     </section>
   </div>
 </template>
+
+<style scoped>
+  /* Image fade-in animation */
+.fade-in {
+  animation: fadeIn 150ms ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Respect user motion preferences for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    animation: none;
+  }
+}
+</style>

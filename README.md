@@ -39,9 +39,8 @@ npm run preview
 ```
 
 ## Components
-
-- **Accordion.vue** - Main accordion component with expand/collapse functionality
 - **SectionAccordion.vue** - Reusable accordion section with image handling and state management
+- **Accordion.vue** - Main accordion component with expand/collapse functionality
 - **Icon.vue** - Reusable icon component
 - **Spinner.vue** - Loading state indicator
 
