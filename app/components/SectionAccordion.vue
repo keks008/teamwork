@@ -1,4 +1,3 @@
-```vue
 <script setup>
 const { 
   items, 
